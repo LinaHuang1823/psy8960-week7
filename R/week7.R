@@ -29,8 +29,19 @@ ggplot(week7_tbl, aes(x = timeStart, y = q1)) +
 
 
 ggplot(week7_tbl, aes(x = q1, y = q2, color = gender)) +
-  geom_point() +
+  geom_point(position = "jitter") +
   labs(x = "q1", y = "q2", color = "Gender") #need to edit later
 
 
+week7_tbl %>% 
+  select(q1, q2, gender)%>% 
+ggplot(aes(x = q1, y = q2)) +
+  geom_point(position = "jitter") +
+  facet_grid(. ~ gender) +
+  labs(x = "Score on Q1", y = "Score on Q2") #need to edit later
   
+week7_tbl %>%
+  ggplot(aes(x = gender, y =timeSpent)) +
+  geom_boxplot() +
+  labs(x = "Gender", y = "Elapsed time (mins)") #may need to edit later
+
