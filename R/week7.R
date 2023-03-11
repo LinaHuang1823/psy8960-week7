@@ -28,27 +28,26 @@ ggplot(week7_tbl, aes(x = timeStart, y = q1)) +
 
 
 
-ggplot(week7_tbl, aes(x = q1, y = q2, color = gender)) +
-  geom_point(position = "jitter") +
-  labs(x = "q1", y = "q2", color = "Gender") #need to edit later
-
-
 week7_tbl %>% 
-  select(q1, q2, gender)%>% 
+  mutate(gender = factor(gender, levels = c("Male", "Female"))) %>%
+  ggplot(aes(x = q1, y = q2, color = gender)) +
+  geom_point(position = "jitter") +
+  labs(x = "q1", y = "q2", color = "Participant Gender") 
+week7_tbl %>% 
+  mutate(gender = factor(gender, levels = c("Male", "Female"))) %>%
 ggplot(aes(x = q1, y = q2)) +
   geom_point(position = "jitter") +
   facet_grid(. ~ gender) +
-  labs(x = "Score on Q1", y = "Score on Q2") #need to edit later
-  
+  labs(x = "Score on Q1", y = "Score on Q2") 
+
 week7_tbl %>%
+  mutate(gender = factor(gender, levels = c("Male", "Female"))) %>%
   ggplot(aes(x = gender, y =timeSpent)) +
   geom_boxplot() +
-  labs(x = "Gender", y = "Elapsed time (mins)") #may need to edit later
+  labs(x = "Gender", y = "Elapsed time (mins)") 
 
-
-ggplot(week7_tbl, aes(x = q5, y = q7, color = condition)) +#need to edit
+ggplot(week7_tbl, aes(x = q5, y = q7, color = condition)) +
   geom_jitter()+
-  #geom_point(position=position_jitter())+
   stat_smooth(method = "lm",se = FALSE)+
   labs(x = "Score on Q5", y = "Score on Q7",color = "Experimental Condition")+
   theme(legend.position = "bottom",
