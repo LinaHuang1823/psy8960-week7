@@ -45,3 +45,14 @@ week7_tbl %>%
   geom_boxplot() +
   labs(x = "Gender", y = "Elapsed time (mins)") #may need to edit later
 
+
+ggplot(week7_tbl, aes(x = q5, y = q7, color = condition)) +#need to edit
+  geom_jitter()+
+  #geom_point(position=position_jitter())+
+  stat_smooth(method = "lm",se = FALSE)+
+  labs(x = "Score on Q5", y = "Score on Q7",color = "Experimental Condition")+
+  theme(legend.position = "bottom",
+        legend.background = element_rect(fill = "#E0E0E0"))+
+  coord_fixed()
+  
+  
