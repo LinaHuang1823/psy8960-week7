@@ -3,12 +3,11 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
-
+library(GGally)
 
 #Data Import and Cleaning
 week7_tbl<-read.csv("../data/Week3.csv")%>%
-  mutate(timeStart = ymd_hms(timeStart),
-        mutate(across(contains("q"), as.integer)))%>%
+  mutate(timeStart = ymd_hms(timeStart))%>%
   mutate(timeEnd = ymd_hms(timeEnd))%>%
   mutate(condition = recode(condition, "A" = "Block A", "B" = "Block B", "C" = "Control"),
          gender = recode(gender, "M" = "Male", "F" = "Female")) %>%
@@ -18,14 +17,15 @@ week7_tbl<-read.csv("../data/Week3.csv")%>%
 
 
 
+
 #Visualization
-#week7_tbl%>% select(starts_with("q"))%>%
-
-
-ggplot(week7_tbl, aes(x = timeStart, y = q1)) +
+week7_tbl%>%
+  select(starts_with("q"))%>% 
+  ggpairs()
+week7_tbl%>%
+  ggplot(aes(x = timeStart, y = q1)) +
   geom_point() +
   labs(x = "Date of Experiment", y = "Q1 Score")
-
 
 
 week7_tbl %>% 
@@ -44,14 +44,16 @@ week7_tbl %>%
   mutate(gender = factor(gender, levels = c("Male", "Female"))) %>%
   ggplot(aes(x = gender, y =timeSpent)) +
   geom_boxplot() +
-  labs(x = "Gender", y = "Elapsed time (mins)") 
+  labs(x = "Gender", y = "Time Elapsed (mins)") 
 
-ggplot(week7_tbl, aes(x = q5, y = q7, color = condition)) +
-  geom_jitter()+
+week7_tbl %>%
+  ggplot(aes(x = q5, y = q7, color = condition)) +
+  geom_jitter(width=0.2)+
   stat_smooth(method = "lm",se = FALSE)+
   labs(x = "Score on Q5", y = "Score on Q7",color = "Experimental Condition")+
   theme(legend.position = "bottom",
         legend.background = element_rect(fill = "#E0E0E0"))+
-  coord_fixed()
+  coord_fixed(ratio=0.5)
+  
   
   
