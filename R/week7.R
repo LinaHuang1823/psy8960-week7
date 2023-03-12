@@ -54,6 +54,3 @@ week7_tbl %>%
   theme(legend.position = "bottom",
         legend.background = element_rect(fill = "#E0E0E0"))+
   coord_fixed(ratio=0.5)
-  
-  
-  
