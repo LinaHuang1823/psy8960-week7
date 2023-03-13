@@ -55,7 +55,6 @@ week7_tbl%>%
         legend.text = element_text(size = 6),
         legend.title = element_text(size = 7.2),
         legend.margin = margin(3, 3, 3, 3, "pt"),
-        #legend.key.size = unit(0.8, "cm"),
         axis.title = element_text(size = 6.8),
         axis.text = element_text(size = 5.5,color="#666666")))%>%
   ggsave("../figs/fig5.png",.,width = 4.5, height = 2.8,dpi = 600)
